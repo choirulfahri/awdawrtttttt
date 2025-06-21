@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+	 version="6.0">
+    
+    <servlet>
+    <servlet-name>tambah-barang.jsp</servlet-name>
+    <jsp-file>/tambah-barang.jsp</jsp-file>
+    <multipart-config>
+      <max-file-size>10485760</max-file-size> <!-- 10MB -->
+      <max-request-size>20971520</max-request-size> <!-- 20MB -->
+      <file-size-threshold>0</file-size-threshold>
+    </multipart-config>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>tambah-barang.jsp</servlet-name>
+    <url-pattern>/tambah-barang.jsp</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>edit-barang</servlet-name>
+    <jsp-file>/edit-barang.jsp</jsp-file>
+    <multipart-config>
+        <max-file-size>10485760</max-file-size> <!-- 10MB -->
+        <max-request-size>20971520</max-request-size> <!-- 20MB -->
+        <file-size-threshold>0</file-size-threshold>
+    </multipart-config>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>edit-barang</servlet-name>
+    <url-pattern>/edit-barang.jsp</url-pattern>
+  </servlet-mapping>
+
+
+</web-app>

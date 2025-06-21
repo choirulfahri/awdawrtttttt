@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aplikasi JSP</title>
+  
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  <style>
+    body {
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    .navbar-nav .nav-link {
+      color: white !important;
+      font-weight: 500;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #f1c40f !important;
+    }
+
+    .main-content {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 70px;
+    }
+
+    h1 {
+      animation: fadeIn 1.5s ease-in-out;
+      font-weight: bold;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-login {
+      font-size: 15px;
+      padding: 10px 24px;
+      margin-top: 20px;
+      border-radius: 30px;
+      background-color: #f1c40f;
+      color: #333;
+      border: none;
+      transition: all 0.3s;
+    }
+
+    .btn-login:hover {
+      background-color: #e67e22;
+      color: white;
+    }
+
+    .icons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .icons i {
+      font-size: 28px;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s, color 0.3s;
+    }
+
+    .icons i:hover {
+      transform: scale(1.2);
+      color: #f1c40f;
+    }
+
+    .info-container {
+      background-color: #34495e;
+      padding: 60px 0;
+    }
+
+    .info-container h2 {
+      margin-bottom: 40px;
+    }
+
+    .card {
+      border-radius: 15px;
+      background-color: #2c3e50;
+      color: white;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card i {
+      color: #f1c40f;
+    }
+
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    footer a {
+      color: #f1c40f;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">Aplikasi JSP</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#">Beranda</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Tentang</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Kontak</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Konten Utama -->
+  <section class="main-content">
+    <h1>Selamat Datang di Aplikasi JSP</h1>
+    <p class="lead text-light mt-2">Platform modern berbasis JSP dengan desain responsif Bootstrap.</p>
+    <a href="form.html" class="btn-login">Login Sekarang</a>
+
+    <div class="icons">
+      <i class="bi bi-facebook" title="Facebook"></i>
+      <i class="bi bi-twitter" title="Twitter"></i>
+      <i class="bi bi-github" title="GitHub"></i>
+    </div>
+  </section>
+
+  <!-- Fitur Utama -->
+  <section class="info-container">
+    <div class="container text-center">
+      <h2>Fitur Unggulan</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card p-4 h-100">
+            <i class="bi bi-shield-lock" style="font-size: 50px;"></i>
+            <h4 class="mt-3">Keamanan Terjamin</h4>
+            <p>Data pengguna dilindungi dengan sistem enkripsi dan standar keamanan terbaik.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card p-4 h-100">
+            <i class="bi bi-speedometer2" style="font-size: 50px;"></i>
+            <h4 class="mt-3">Performa Cepat</h4>
+            <p>Optimasi performa menjadikan aplikasi responsif dan cepat digunakan.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card p-4 h-100">
+            <i class="bi bi-layout-text-window-reverse" style="font-size: 50px;"></i>
+            <h4 class="mt-3">Antarmuka Ramah Pengguna</h4>
+            <p>Desain sederhana dan intuitif memudahkan semua pengguna berinteraksi.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Aplikasi JSP — Semua Hak Dilindungi</p>
+    <p>Kunjungi kami di <a href="https://github.com">GitHub</a></p>
+  </footer>
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

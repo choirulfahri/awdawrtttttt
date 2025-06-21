@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login Pengguna</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in {
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(10px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .tab-content {
+      animation: slideIn 0.3s ease-out forwards;
+    }
+    .btn-hover {
+      transition: all 0.3s ease;
+    }
+    .btn-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    .btn-hover:active {
+      transform: translateY(0);
+    }
+    input:focus {
+      outline: none;
+      border-color: #1e40af;
+      box-shadow: 0 0 5px rgba(30, 64, 175, 0.5);
+    }
+  </style>
+</head>
+<body class="bg-blue-400 flex items-center justify-center min-h-screen">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md fade-in">
+    <h2 class="text-xl font-semibold text-gray-700 text-center mb-4">🔐 Login Pengguna</h2>
+    <p id="message" class="text-center mb-4 text-red-600"></p>
+
+    <!-- Tab Navigation -->
+    <div class="flex justify-between mb-4">
+      <button id="signInTab" class="w-1/2 py-2 bg-blue-800 text-white font-medium rounded-l-md btn-hover">Masuk</button>
+      <button id="signUpTab" class="w-1/2 py-2 bg-gray-300 text-gray-700 font-medium rounded-r-md btn-hover">Daftar</button>
+    </div>
+
+    <!-- Sign In Form -->
+    <div id="signInForm" class="tab-content">
+        <form id="loginForm" action="login-process.jsp" method="post">
+        <div class="mb-4 flex items-center border border-gray-300 rounded-md p-2 bg-white">
+          <span class="text-gray-500 mr-2">📧</span>
+          <input id="loginEmail" type="email" name="email" class="w-full p-1 border-none focus:outline-none" placeholder="email@example.com" required />
+        </div>
+        <div class="mb-4 flex items-center border border-gray-300 rounded-md p-2 bg-white">
+          <span class="text-gray-500 mr-2">🔒</span>
+          <input id="loginPassword" type="password" name="password" class="w-full p-1 border-none focus:outline-none" placeholder="********" required />
+        </div>
+        <button type="submit" class="w-full py-2 bg-blue-800 text-white rounded-md mb-4 btn-hover">➡️ Masuk</button>
+      </form>
+      <div class="text-center text-gray-600 mb-4">Atau lanjutkan dengan</div>
+      <div class="flex justify-center space-x-4">
+        <button onclick="signInWithGoogle()" title="Login dengan Google" class="focus:outline-none">
+          <img src="https://www.google.com/favicon.ico" alt="Google" class="w-8 h-8 cursor-pointer" />
+        </button>
+      </div>
+    </div>
+
+    <!-- Sign Up Form -->
+    <div id="signUpForm" class="tab-content hidden">
+      <form id="registerForm" action="register-process.jsp" method="post">
+        <div class="mb-4 flex items-center border border-gray-300 rounded-md p-2 bg-white">
+          <span class="text-gray-500 mr-2">👤</span>
+          <input id="registerName" type="text" name="nama" class="w-full p-1 border-none focus:outline-none" placeholder="Nama Pengguna" required />
+        </div>
+        <div class="mb-4 flex items-center border border-gray-300 rounded-md p-2 bg-white">
+          <span class="text-gray-500 mr-2">📧</span>
+          <input id="registerEmail" type="email" name="email" class="w-full p-1 border-none focus:outline-none" placeholder="email@example.com" required />
+        </div>
+        <div class="mb-4 flex items-center border border-gray-300 rounded-md p-2 bg-white">
+          <span class="text-gray-500 mr-2">🔒</span>
+          <input id="registerPassword" type="password" name="password" class="w-full p-1 border-none focus:outline-none" placeholder="********" required />
+        </div>
+        <button type="submit" class="w-full py-2 bg-blue-800 text-white rounded-md mb-4 btn-hover">Daftar</button>
+      </form>
+      <div class="text-center text-gray-600 mb-4">Atau lanjutkan dengan</div>
+      <div class="flex justify-center space-x-4">
+        <!-- Placeholder untuk opsi lain -->
+        <img src="https://www.google.com/favicon.ico" alt="Google" class="w-8 h-8 cursor-pointer" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase JS SDK -->
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDMuJltd444j3foWzfZBVZUKTSXhTIZL30",
+    authDomain: "yuna-ec9e8.firebaseapp.com",
+    projectId: "yuna-ec9e8",
+    storageBucket: "yuna-ec9e8.appspot.com",
+    messagingSenderId: "1073558102975",
+    appId: "1:1073558102975:web:c1111ba97470c0ee6e370a",
+    measurementId: "G-67JRRHCGS3"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  function setMessage(text, color) {
+    const msg = document.getElementById('message');
+    msg.style.color = color || 'red';
+    msg.innerText = text;
+  }
+
+  window.signInWithGoogle = async function() {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const idToken = await user.getIdToken();
+
+      // Kirim token ke backend JSP
+      const res = await fetch('session-setup.jsp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `idToken=${encodeURIComponent(idToken)}`
+      });
+
+      if (res.ok) {
+        window.location.href = 'welcome.jsp';
+      } else {
+        setMessage('Gagal mengatur session di server.');
+      }
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
+
+  // Tab switching logic
+  const signInTab = document.getElementById('signInTab');
+  const signUpTab = document.getElementById('signUpTab');
+  const signInForm = document.getElementById('signInForm');
+  const signUpForm = document.getElementById('signUpForm');
+
+  signInTab.addEventListener('click', () => {
+    signInTab.classList.add('bg-blue-800', 'text-white');
+    signInTab.classList.remove('bg-gray-300', 'text-gray-700');
+    signUpTab.classList.add('bg-gray-300', 'text-gray-700');
+    signUpTab.classList.remove('bg-blue-800', 'text-white');
+    signInForm.classList.remove('hidden');
+    signUpForm.classList.add('hidden');
+    setMessage('');
+  });
+
+  signUpTab.addEventListener('click', () => {
+    signUpTab.classList.add('bg-blue-800', 'text-white');
+    signUpTab.classList.remove('bg-gray-300', 'text-gray-700');
+    signInTab.classList.add('bg-gray-300', 'text-gray-700');
+    signInTab.classList.remove('bg-blue-800', 'text-white');
+    signUpForm.classList.remove('hidden');
+    signInForm.classList.add('hidden');
+    setMessage('');
+  });
+  </script>
+</body>
+</html>
