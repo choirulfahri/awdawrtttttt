@@ -55,3 +55,4 @@ INSERT INTO `barang` (`nama`, `deskripsi`, `harga`, `stok`, `gambar`) VALUES
 
 INSERT INTO `users` (`nama`, `email`, `password`, `role`) VALUES
 ('Administrator', 'admin@toko.com', 'admin', 'admin');
+"# awdawrtttttt" 
